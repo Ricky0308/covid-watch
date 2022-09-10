@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/app
+    command: sh -c "cd ./back &&
+              python manage.py runserver 0.0.0.0:8000"
+    tty: true
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/front:/frontend
+    command: sh -c "npm start"
+    tty: true
+      
+# docker-compose build backend
+# docker-compose up backend
